@@ -692,40 +692,48 @@ body {
 .record-results {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.8rem;
-    margin-top: 0.5rem;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
 }
 
 .record-result-item {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    padding: 0.9rem;
-    border-radius: 0.7rem;
+    gap: 0.5rem;
+    padding: 1.1rem;
+    border-radius: 0.8rem;
     text-align: center;
-    border: none;
+    border: 1px solid var(--border-color);
     align-items: center;
     justify-content: center;
+    background: var(--bg-secondary);
 }
 
 .record-result-item.excellent {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.18));
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
 }
 
 .record-result-item.very-good {
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(14, 165, 233, 0.18));
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
 }
 
 .record-result-item.satisfactory {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(99, 102, 241, 0.18));
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
 }
 
 .record-result-item.fair {
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.18));
+    border-color: var(--warning-color);
+    border-width: 1.5px;
 }
 
 .record-result-item.failed {
     background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(239, 68, 68, 0.18));
+    border-color: var(--danger-color);
+    border-width: 1.5px;
 }
 
 .record-result-item .result-label {
@@ -738,7 +746,7 @@ body {
 }
 
 .record-result-item .result-value {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 800;
     color: var(--text-primary);
 }

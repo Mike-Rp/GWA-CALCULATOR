@@ -710,18 +710,21 @@ body {
 }
 
 .record-result-item.excellent {
-    background: var(--bg-secondary);
-    border-color: var(--border-color);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.18));
+    border-color: var(--success-color);
+    border-width: 1.5px;
 }
 
 .record-result-item.very-good {
-    background: var(--bg-secondary);
-    border-color: var(--border-color);
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(14, 165, 233, 0.18));
+    border-color: var(--info-color);
+    border-width: 1.5px;
 }
 
 .record-result-item.satisfactory {
-    background: var(--bg-secondary);
-    border-color: var(--border-color);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(99, 102, 241, 0.18));
+    border-color: var(--primary-color);
+    border-width: 1.5px;
 }
 
 .record-result-item.fair {

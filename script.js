@@ -192,6 +192,13 @@ function displayResults() {
             input.value = value.toFixed(2);
         }
     });
+
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            if (!validateInputs()) return;
+            calculateGWA();
+        }
+    });
 });
 
 /* ---------- BUTTONS ---------- */

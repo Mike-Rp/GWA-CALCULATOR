@@ -8,32 +8,32 @@
     --info-color: #0ea5e9;
     
     --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
+    --bg-secondary: #f5f5f5;
     --bg-tertiary: #e2e8f0;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    --border-color: rgba(148, 163, 184, 0.5);
+    --card-bg: #ffffff;
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --border-color: #e0e0e0;
     --input-bg: transparent;
     --input-border: #cbd5e1;
-    --table-bg: #f8fafc;
-    --table-border: #e2e8f0;
+    --table-bg: #f5f5f5;
+    --table-border: #e0e0e0;
 }
 
 body.dark-mode {
-    --bg-primary: #020617;
-    --bg-secondary: #0f172a;
-    --bg-tertiary: #1e293b;
-    --text-primary: #f9fafb;
-    --text-secondary: #94a3b8;
-    --card-bg: rgba(15, 23, 42, 0.95);
-    --card-shadow: 0 12px 40px rgba(15, 23, 42, 0.6);
-    --border-color: rgba(51, 65, 85, 0.9);
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-tertiary: #0f3460;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --card-bg: #16213e;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --border-color: #2d3e5f;
     --input-bg: transparent;
-    --input-border: #475569;
-    --table-bg: #0f172a;
-    --table-border: #1e293b;
+    --input-border: #3d5a80;
+    --table-bg: #0f3460;
+    --table-border: #2d3e5f;
 }
 
 /* ---------- BASE ---------- */
@@ -52,10 +52,7 @@ html {
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: radial-gradient(circle at top left, #1d4ed8, transparent 55%),
-                radial-gradient(circle at bottom right, #0f766e, transparent 55%),
-                linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
-    background-attachment: fixed;
+    background: var(--bg-primary);
     color: var(--text-primary);
     transition: background 0.3s ease, color 0.3s ease;
     min-height: 100vh;
@@ -77,7 +74,6 @@ body {
     top: 0;
     z-index: 100;
     background: var(--card-bg);
-    backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     padding: 1.5rem;
     border-radius: 1.5rem;
@@ -151,7 +147,6 @@ body {
 
 .calculator-card {
     background: var(--card-bg);
-    backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
     border-radius: 1.5rem;
     padding: 1.5rem;
@@ -194,7 +189,18 @@ body {
 
 .input-group {
     position: relative;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.floating-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
 }
 
 .grade-input {
@@ -226,25 +232,6 @@ body {
     background: rgba(148, 163, 184, 0.04);
 }
 
-.floating-label {
-    position: absolute;
-    top: -0.6rem;
-    left: 1rem;
-    font-size: 0.78rem;
-    color: var(--text-secondary);
-    pointer-events: none;
-    background: var(--card-bg);
-    padding: 0 0.4rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
-
-.grade-input:focus ~ .floating-label {
-    color: var(--primary-color);
-}
-
-/* error state for inputs */
 .input-error {
     border-color: var(--danger-color);
     box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
@@ -275,30 +262,36 @@ body {
     gap: 0.5rem;
 }
 
+#saveBtn {
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    padding: 0.9rem 2rem;
+}
+
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    background: var(--primary-color);
     color: white;
-    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 .btn-primary:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.4);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
 }
 
 .btn-primary:active {
     transform: translateY(0);
-    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
 
 .btn-secondary {
-    background: var(--bg-tertiary);
+    background: var(--bg-secondary);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-    background: rgba(148, 163, 184, 0.2);
+    background: var(--bg-tertiary);
     transform: translateY(-1px);
 }
 
@@ -309,12 +302,12 @@ body {
 .btn-danger {
     background: var(--danger-color);
     color: white;
-    box-shadow: 0 5px 16px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .btn-danger:hover {
     transform: translateY(-1px);
-    box-shadow: 0 7px 20px rgba(239, 68, 68, 0.5);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
 }
 
 .btn-danger:active {
@@ -329,12 +322,6 @@ body {
     gap: 1.5rem;
 }
 
-.results-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-}
-
 .results-subtitle {
     font-size: 0.85rem;
     color: var(--text-secondary);
@@ -343,14 +330,15 @@ body {
 .result-display {
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
-    gap: 1rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .result-item {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
-    padding: 1.1rem 1rem;
+    padding: 1.3rem 1.2rem;
     background: var(--bg-secondary);
     border-radius: 1rem;
     border: 1px solid var(--border-color);
@@ -358,11 +346,8 @@ body {
 
 .result-item.highlight {
     border-width: 1.5px;
-    border-color: rgba(79, 70, 229, 0.4);
-    box-shadow: 0 10px 24px rgba(79, 70, 229, 0.35);
-    background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.12), transparent 55%),
-                radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.12), transparent 60%),
-                var(--bg-secondary);
+    border-color: var(--primary-color);
+    background: var(--bg-secondary);
 }
 
 .result-label {
@@ -380,10 +365,7 @@ body {
     display: inline-flex;
     align-items: baseline;
     gap: 0.2rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-color);
 }
 
 .result-value.small {
@@ -400,28 +382,29 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.4rem 0.8rem;
+    padding: 0.5rem 1rem;
     border-radius: 999px;
     font-size: 0.8rem;
     font-weight: 600;
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    background: rgba(148, 163, 184, 0.08);
+    background: var(--bg-secondary);
 }
 
-/* big badge */
+/* ---------- REMARK BADGE ---------- */
 
 .remark-badge {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.1rem 2rem;
+    padding: 1.2rem 2rem;
     border-radius: 1rem;
     font-weight: 800;
     font-size: 1.05rem;
     animation: scaleIn 0.4s ease;
     text-transform: uppercase;
     letter-spacing: 0.12em;
+    border: 1.5px solid;
 }
 
 @keyframes scaleIn {
@@ -436,44 +419,39 @@ body {
 }
 
 .remark-badge.neutral {
-    background: linear-gradient(135deg, rgba(148, 163, 184, 0.15), rgba(148, 163, 184, 0.2));
+    background: var(--bg-secondary);
     color: var(--text-secondary);
-    border: 1px solid rgba(148, 163, 184, 0.5);
+    border-color: var(--border-color);
 }
 
 .remark-badge.excellent {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(16, 185, 129, 0.24));
-    color: var(--success-color);
-    border: 1px solid var(--success-color);
-    box-shadow: 0 10px 26px rgba(16, 185, 129, 0.35);
+    background: var(--success-color);
+    color: white;
+    border-color: var(--success-color);
 }
 
 .remark-badge.very-good {
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.18), rgba(14, 165, 233, 0.26));
-    color: var(--info-color);
-    border: 1px solid var(--info-color);
-    box-shadow: 0 10px 26px rgba(14, 165, 233, 0.35);
+    background: var(--info-color);
+    color: white;
+    border-color: var(--info-color);
 }
 
 .remark-badge.satisfactory {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(99, 102, 241, 0.26));
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    box-shadow: 0 10px 26px rgba(99, 102, 241, 0.35);
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
 .remark-badge.fair {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(245, 158, 11, 0.26));
-    color: var(--warning-color);
-    border: 1px solid var(--warning-color);
-    box-shadow: 0 10px 26px rgba(245, 158, 11, 0.35);
+    background: var(--warning-color);
+    color: white;
+    border-color: var(--warning-color);
 }
 
 .remark-badge.failed {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(239, 68, 68, 0.26));
-    color: var(--danger-color);
-    border: 1px solid var(--danger-color);
-    box-shadow: 0 10px 26px rgba(239, 68, 68, 0.35);
+    background: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
 }
 
 /* ---------- TABLE ---------- */
@@ -522,7 +500,7 @@ body {
 }
 
 .grades-table tbody tr:hover {
-    background: rgba(148, 163, 184, 0.08);
+    background: var(--bg-secondary);
 }
 
 .grades-table tbody tr:last-child td {
@@ -535,40 +513,40 @@ body {
     border-radius: 999px;
     font-weight: 600;
     font-size: 0.78rem;
+    border: 1px solid;
 }
 
-/* badge colors unchanged from your version */
 .badge.excellent {
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--success-color);
-    border: 1px solid var(--success-color);
+    background: var(--success-color);
+    color: white;
+    border-color: var(--success-color);
 }
 
 .badge.very-good {
-    background: rgba(14, 165, 233, 0.15);
-    color: var(--info-color);
-    border: 1px solid var(--info-color);
+    background: var(--info-color);
+    color: white;
+    border-color: var(--info-color);
 }
 
 .badge.satisfactory {
-    background: rgba(99, 102, 241, 0.15);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
 .badge.fair {
-    background: rgba(245, 158, 11, 0.15);
-    color: var(--warning-color);
-    border: 1px solid var(--warning-color);
+    background: var(--warning-color);
+    color: white;
+    border-color: var(--warning-color);
 }
 
 .badge.failed {
-    background: rgba(239, 68, 68, 0.15);
-    color: var(--danger-color);
-    border: 1px solid var(--danger-color);
+    background: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
 }
 
-/* ---------- SAVED RECORDS & MODALS (unchanged structure, just keep your styles) ---------- */
+/* ---------- SAVED RECORDS ---------- */
 
 .records-list {
     display: flex;
@@ -587,7 +565,7 @@ body {
 
 .record-card:hover {
     border-color: var(--primary-color);
-    box-shadow: 0 10px 26px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
     transform: translateY(-2px);
 }
 
@@ -624,7 +602,7 @@ body {
 
 .record-delete:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(239, 68, 68, 0.55);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
 .record-delete:active {
@@ -648,8 +626,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    padding: 0.7rem 0.9rem;
-    background: var(--bg-primary);
+    padding: 0.8rem 1rem;
+    background: var(--card-bg);
     border-radius: 0.6rem;
     border: 1px solid var(--border-color);
 }
@@ -679,67 +657,71 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    padding: 0.85rem;
+    padding: 0.9rem;
     border-radius: 0.7rem;
     text-align: center;
     border: 1.5px solid;
 }
 
 .record-result-item.excellent {
-    background: rgba(16, 185, 129, 0.1);
+    background: var(--success-color);
     border-color: var(--success-color);
+    color: white;
 }
 
 .record-result-item.very-good {
-    background: rgba(14, 165, 233, 0.1);
+    background: var(--info-color);
     border-color: var(--info-color);
+    color: white;
 }
 
 .record-result-item.satisfactory {
-    background: rgba(99, 102, 241, 0.1);
+    background: var(--primary-color);
     border-color: var(--primary-color);
+    color: white;
 }
 
 .record-result-item.fair {
-    background: rgba(245, 158, 11, 0.1);
+    background: var(--warning-color);
     border-color: var(--warning-color);
+    color: white;
 }
 
 .record-result-item.failed {
-    background: rgba(239, 68, 68, 0.1);
+    background: var(--danger-color);
     border-color: var(--danger-color);
+    color: white;
 }
 
 .record-result-item .result-label {
     font-size: 0.7rem;
-    color: var(--text-secondary);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    opacity: 0.9;
 }
 
 .record-result-item .result-value {
     font-size: 1.15rem;
     font-weight: 800;
+    color: inherit;
 }
 
-/* modal styles same as before with small tweaks */
+/* ---------- MODALS ---------- */
 
 .modal {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 42, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     padding: 1rem;
-    backdrop-filter: blur(6px);
 }
 
 .modal-content {
     background: var(--card-bg);
-    backdrop-filter: blur(12px);
     border-radius: 1.4rem;
     padding: 2rem;
     max-width: 400px;

@@ -710,31 +710,31 @@ body {
 }
 
 .record-result-item.excellent {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.18));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(16, 185, 129, 0.35));
     border-color: var(--success-color);
     border-width: 1.5px;
 }
 
 .record-result-item.very-good {
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(14, 165, 233, 0.18));
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(14, 165, 233, 0.35));
     border-color: var(--info-color);
     border-width: 1.5px;
 }
 
 .record-result-item.satisfactory {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(99, 102, 241, 0.18));
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(99, 102, 241, 0.35));
     border-color: var(--primary-color);
     border-width: 1.5px;
 }
 
 .record-result-item.fair {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.18));
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.35));
     border-color: var(--warning-color);
     border-width: 1.5px;
 }
 
 .record-result-item.failed {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(239, 68, 68, 0.18));
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(239, 68, 68, 0.35));
     border-color: var(--danger-color);
     border-width: 1.5px;
 }

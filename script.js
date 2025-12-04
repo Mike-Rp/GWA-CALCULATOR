@@ -171,10 +171,10 @@ function calculateGWA() {
 function displayResults() {
     averageDisplay.textContent = currentData.average.toFixed(2);
     gwaDisplay.textContent = currentData.gwa;
-    remarkText.textContent = currentData.remark;
-    remarkChip.textContent = currentData.remark;
-
-    remarkBadge.className = `remark-badge ${currentData.class}`;
+    if (remarkChip) {
+        remarkChip.textContent = currentData.remark;
+        remarkChip.className = `result-chip ${currentData.class}`;
+    }
 }
 
 /* ---------- INPUT EVENTS ---------- */

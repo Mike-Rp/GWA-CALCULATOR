@@ -37,6 +37,7 @@
                         min="0"
                         max="100"
                         step="0.01"
+                        placeholder="Enter Grade"
                     >
                 </div>
 
@@ -49,6 +50,7 @@
                         min="0"
                         max="100"
                         step="0.01"
+                        placeholder="Enter Grade"
                     >
                 </div>
 
@@ -61,6 +63,7 @@
                         min="0"
                         max="100"
                         step="0.01"
+                        placeholder="Enter Grade"
                     >
                 </div>
 
@@ -73,6 +76,7 @@
                         min="0"
                         max="100"
                         step="0.01"
+                        placeholder="Enter Grade"
                     >
                 </div>
 
@@ -97,17 +101,19 @@
                 <div class="result-display">
                     <div class="result-item highlight">
                         <span class="result-label">Final Average</span>
-                        <span class="result-value" id="averageDisplay">0.00</span>
-                        <span class="result-unit">%</span>
+                        <div class="result-value-container">
+                            <span class="result-value" id="averageDisplay">0.00</span>
+                            <span class="result-unit">%</span>
+                        </div>
                     </div>
                     <div class="result-item">
                         <span class="result-label">GWA</span>
                         <span class="result-value small" id="gwaDisplay">5.00</span>
                     </div>
-                </div>
-
-                <div class="remark-badge neutral" id="remarkBadge">
-                    <span id="remarkText">No Grade</span>
+                    <div class="result-item">
+                        <span class="result-label">Remarks</span>
+                        <span class="result-chip" id="remarkChip">No Grade</span>
+                    </div>
                 </div>
 
                 <button id="saveBtn" class="btn btn-primary">
@@ -198,7 +204,7 @@
                 type="text" 
                 id="subjectInput" 
                 class="modal-input" 
-                placeholder="Enter subject name (e.g., Math 101)"
+                placeholder="Enter subject name"
                 maxlength="50"
             >
             <div class="modal-error" id="modalError"></div>

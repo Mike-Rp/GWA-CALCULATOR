@@ -191,8 +191,40 @@
             </section>
 
             <section class="calculator-card saved-section" id="savedSection" style="display: none;">
-                <h2 class="section-title">Saved Records</h2>
+                <div class="saved-header">
+                    <h2 class="section-title">Saved Records</h2>
+                    <button id="computeGWABtn" class="btn btn-primary" title="Compute overall GWA">
+                        <i class="fas fa-chart-line"></i>
+                        Compute GWA
+                    </button>
+                </div>
                 <div class="records-list" id="recordsList"></div>
+            </section>
+
+            <section class="calculator-card compute-result-section" id="computeResultSection" style="display: none;">
+                <div class="results-header">
+                    <h2 class="section-title">Overall GWA Result</h2>
+                    <p class="results-subtitle">Combined calculation from all saved records.</p>
+                </div>
+                
+                <div class="result-display">
+                    <div class="result-item highlight">
+                        <span class="result-label">Total Units</span>
+                        <div class="result-value-container">
+                            <span class="result-value" id="totalUnitsDisplay">0</span>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Overall GWA</span>
+                        <span class="result-value small" id="overallGWADisplay">5.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Subjects</span>
+                        <span class="result-value small" id="subjectCountDisplay">0</span>
+                    </div>
+                </div>
+
+                <div class="subject-breakdown" id="subjectBreakdown"></div>
             </section>
         </main>
     </div>

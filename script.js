@@ -1,3 +1,4 @@
+/* DOM ELEMENTS */
 const prelimInput = document.getElementById('prelim');
 const midtermInput = document.getElementById('midterm');
 const preFinalsInput = document.getElementById('preFinals');
@@ -7,15 +8,15 @@ const calculateBtn = document.getElementById('calculateBtn');
 const clearBtn = document.getElementById('clearBtn');
 const saveBtn = document.getElementById('saveBtn');
 const themeToggle = document.getElementById('themeToggle');
+const computeGWABtn = document.getElementById('computeGWABtn');
 
 const resultsSection = document.getElementById('resultsSection');
 const savedSection = document.getElementById('savedSection');
+const computeResultSection = document.getElementById('computeResultSection');
 const recordsList = document.getElementById('recordsList');
 
 const averageDisplay = document.getElementById('averageDisplay');
 const gwaDisplay = document.getElementById('gwaDisplay');
-const remarkBadge = document.getElementById('remarkBadge');
-const remarkText = document.getElementById('remarkText');
 const remarkChip = document.getElementById('remarkChip');
 
 const inputError = document.getElementById('inputError');
@@ -30,8 +31,7 @@ const deleteModal = document.getElementById('deleteModal');
 const deleteConfirm = document.getElementById('deleteConfirm');
 const deleteCancel = document.getElementById('deleteCancel');
 
-let deleteRecordId = null;
-
+/* GRADE TO GWA CONVERSION TABLE */
 const gradeToGWA = [
     { min: 97.50, max: 100, gwa: 1.00, remark: 'Excellent', class: 'excellent' },
     { min: 94.50, max: 97.49, gwa: 1.25, remark: 'Very Good', class: 'very-good' },
@@ -56,7 +56,9 @@ let currentData = {
     class: 'neutral'
 };
 
-/* ---------- THEME ---------- */
+let deleteRecordId = null;
+
+/* ---------- THEME MANAGEMENT ---------- */
 
 function initTheme() {
     const savedTheme = localStorage.getItem('gwaTheme') || 'light';
@@ -101,7 +103,6 @@ function validateInputs() {
         { input: finalsInput, name: 'Finals' }
     ];
 
-    // Reset styles
     fields.forEach(f => f.input.classList.remove('input-error'));
 
     for (const field of fields) {
@@ -117,29 +118,31 @@ function validateInputs() {
     return true;
 }
 
-/* ---------- CALCULATION ---------- */
+/* ---------- GWA CALCULATION ---------- */
+
+function getGradeInfo(average) {
+    const gradeInfo = gradeToGWA.find(g => average >= g.min && average <= g.max);
+    return gradeInfo || {
+        gwa: 5.00,
+        remark: 'No Grade',
+        class: 'neutral'
+    };
+}
 
 function calculateGWA() {
-    // All fields are filled because of validateInputs
+    if (!validateInputs()) return;
+
     let prelim = normalizeGrade(parseFloat(prelimInput.value));
     let midterm = normalizeGrade(parseFloat(midtermInput.value));
     let preFinals = normalizeGrade(parseFloat(preFinalsInput.value));
     let finals = normalizeGrade(parseFloat(finalsInput.value));
 
-    // Push clamped values back to inputs (so 110 becomes 100, etc.)
     prelimInput.value = prelim.toFixed(2);
     midtermInput.value = midterm.toFixed(2);
     preFinalsInput.value = preFinals.toFixed(2);
     finalsInput.value = finals.toFixed(2);
 
-    // Weighted average: 20% + 20% + 20% + 40% = 100%
-    const averageRaw =
-        prelim * 0.20 +
-        midterm * 0.20 +
-        preFinals * 0.20 +
-        finals * 0.40;
-
-    // Final average must not go beyond 100
+    const averageRaw = prelim * 0.20 + midterm * 0.20 + preFinals * 0.20 + finals * 0.40;
     const average = Math.min(averageRaw, 100);
 
     currentData = {
@@ -150,19 +153,10 @@ function calculateGWA() {
         average: parseFloat(average.toFixed(2))
     };
 
-    const gradeInfo = gradeToGWA.find(
-        g => average >= g.min && average <= g.max
-    );
-
-    if (gradeInfo) {
-        currentData.gwa = gradeInfo.gwa.toFixed(2);
-        currentData.remark = gradeInfo.remark;
-        currentData.class = gradeInfo.class;
-    } else {
-        currentData.gwa = '5.00';
-        currentData.remark = 'No Grade';
-        currentData.class = 'neutral';
-    }
+    const gradeInfo = getGradeInfo(currentData.average);
+    currentData.gwa = gradeInfo.gwa.toFixed(2);
+    currentData.remark = gradeInfo.remark;
+    currentData.class = gradeInfo.class;
 
     displayResults();
     resultsSection.style.display = 'block';
@@ -179,7 +173,6 @@ function displayResults() {
 
 /* ---------- INPUT EVENTS ---------- */
 
-// Clear error while typing
 [prelimInput, midtermInput, preFinalsInput, finalsInput].forEach(input => {
     input.addEventListener('input', () => {
         inputError.textContent = '';
@@ -195,18 +188,14 @@ function displayResults() {
 
     input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            if (!validateInputs()) return;
             calculateGWA();
         }
     });
 });
 
-/* ---------- BUTTONS ---------- */
+/* ---------- BUTTON EVENTS ---------- */
 
-calculateBtn.addEventListener('click', () => {
-    if (!validateInputs()) return;
-    calculateGWA();
-});
+calculateBtn.addEventListener('click', calculateGWA);
 
 clearBtn.addEventListener('click', () => {
     prelimInput.value = '';
@@ -214,7 +203,7 @@ clearBtn.addEventListener('click', () => {
     preFinalsInput.value = '';
     finalsInput.value = '';
     inputError.textContent = '';
-    [prelimInput, midtermInput, preFinalsInput, finalsInput].forEach(i =>
+    [prelimInput, midtermInput, preFinalsInput, finalsInput].forEach(i => 
         i.classList.remove('input-error')
     );
     resultsSection.style.display = 'none';
@@ -232,7 +221,6 @@ clearBtn.addEventListener('click', () => {
 });
 
 saveBtn.addEventListener('click', () => {
-    // Do not open modal if nothing has been calculated yet
     if (resultsSection.style.display === 'none' || currentData.average === 0) {
         return;
     }
@@ -242,7 +230,7 @@ saveBtn.addEventListener('click', () => {
     subjectInput.focus();
 });
 
-/* ---------- SAVE MODAL ---------- */
+/* ---------- SAVE MODAL EVENTS ---------- */
 
 modalSave.addEventListener('click', () => {
     const subjectName = subjectInput.value.trim();
@@ -276,7 +264,7 @@ subjectModal.addEventListener('click', (e) => {
     }
 });
 
-/* ---------- LOCAL STORAGE RECORDS ---------- */
+/* ---------- SAVED RECORDS MANAGEMENT ---------- */
 
 function saveRecord(subjectName) {
     const record = {
@@ -363,14 +351,13 @@ function displayRecords() {
     document.querySelectorAll('.record-delete').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const target = e.currentTarget;
-            deleteRecordId = parseInt(target.dataset.id, 10);
+            deleteRecordId = parseInt(btn.dataset.id, 10);
             deleteModal.style.display = 'flex';
         });
     });
 }
 
-/* ---------- DELETE MODAL ---------- */
+/* ---------- DELETE MODAL EVENTS ---------- */
 
 deleteConfirm.addEventListener('click', () => {
     if (deleteRecordId) {
@@ -382,6 +369,7 @@ deleteConfirm.addEventListener('click', () => {
         
         if (records.length === 0) {
             savedSection.style.display = 'none';
+            computeResultSection.style.display = 'none';
         }
     }
     deleteModal.style.display = 'none';
@@ -400,7 +388,45 @@ deleteModal.addEventListener('click', (e) => {
     }
 });
 
-/* ---------- HELPERS ---------- */
+/* ---------- COMPUTE OVERALL GWA ---------- */
+
+function computeOverallGWA() {
+    const records = JSON.parse(localStorage.getItem('gwaRecords')) || [];
+    
+    if (records.length === 0) {
+        alert('No saved records to compute GWA');
+        return;
+    }
+
+    // Simple average: sum all GWAs and divide by count
+    const totalGWA = records.reduce((sum, record) => sum + parseFloat(record.gwa), 0);
+    const overallGWA = (totalGWA / records.length).toFixed(2);
+
+    // Display results
+    document.getElementById('totalUnitsDisplay').textContent = records.length;
+    document.getElementById('overallGWADisplay').textContent = overallGWA;
+    document.getElementById('subjectCountDisplay').textContent = records.length;
+
+    // Display subject breakdown
+    const breakdownContainer = document.getElementById('subjectBreakdown');
+    breakdownContainer.innerHTML = '<h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-primary);">Subject Breakdown</h3>';
+    
+    records.forEach(record => {
+        const subjectItem = document.createElement('div');
+        subjectItem.className = 'subject-item';
+        subjectItem.innerHTML = `
+            <span class="subject-name">${escapeHTML(record.subject)}</span>
+            <span class="subject-grade">${record.gwa}</span>
+        `;
+        breakdownContainer.appendChild(subjectItem);
+    });
+
+    computeResultSection.style.display = 'block';
+}
+
+computeGWABtn.addEventListener('click', computeOverallGWA);
+
+/* ---------- HELPER FUNCTIONS ---------- */
 
 function escapeHTML(text) {
     const map = {
@@ -413,10 +439,10 @@ function escapeHTML(text) {
     return text.replace(/[&<>"']/g, m => map[m]);
 }
 
-/* ---------- INIT ---------- */
+/* ---------- INITIALIZATION ---------- */
 
 initTheme();
 displayRecords();
-if (recordsList.children.length > 0) {
+if (recordsList.children.length > 0 && recordsList.innerHTML.indexOf('No saved records') === -1) {
     savedSection.style.display = 'block';
 }

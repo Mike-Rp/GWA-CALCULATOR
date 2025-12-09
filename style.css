@@ -1,6 +1,4 @@
-.result-value.small {
-    font-size: 1.7rem;
-}:root {
+:root {
     --primary-color: #6366f1;
     --primary-dark: #4f46e5;
     --secondary-color: #64748b;
@@ -271,6 +269,10 @@ body {
     padding: 0.9rem 2rem;
 }
 
+#computeGWABtn {
+    flex: 0;
+}
+
 .btn-primary {
     background: var(--primary-color);
     color: white;
@@ -370,6 +372,10 @@ body {
     color: var(--primary-color);
 }
 
+.result-value.small {
+    font-size: 1.7rem;
+}
+
 .result-value-container {
     display: flex;
     align-items: baseline;
@@ -427,74 +433,6 @@ body {
     background: var(--bg-tertiary);
     border-color: var(--border-color);
     color: var(--text-secondary);
-}
-
-/* ---------- REMARK BADGE ---------- */
-
-.remark-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.2rem 2rem;
-    border-radius: 1rem;
-    font-weight: 800;
-    font-size: 1.05rem;
-    animation: scaleIn 0.4s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    border: 1.5px solid;
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.96);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.remark-badge.neutral {
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-    border-color: var(--border-color);
-}
-
-.remark-badge.excellent {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(16, 185, 129, 0.24));
-    color: var(--success-color);
-    border: 1px solid var(--success-color);
-    box-shadow: 0 10px 26px rgba(16, 185, 129, 0.35);
-}
-
-.remark-badge.very-good {
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.18), rgba(14, 165, 233, 0.26));
-    color: var(--info-color);
-    border: 1px solid var(--info-color);
-    box-shadow: 0 10px 26px rgba(14, 165, 233, 0.35);
-}
-
-.remark-badge.satisfactory {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(99, 102, 241, 0.26));
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    box-shadow: 0 10px 26px rgba(99, 102, 241, 0.35);
-}
-
-.remark-badge.fair {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(245, 158, 11, 0.26));
-    color: var(--warning-color);
-    border: 1px solid var(--warning-color);
-    box-shadow: 0 10px 26px rgba(245, 158, 11, 0.35);
-}
-
-.remark-badge.failed {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(239, 68, 68, 0.26));
-    color: var(--danger-color);
-    border: 1px solid var(--danger-color);
-    box-shadow: 0 10px 26px rgba(239, 68, 68, 0.35);
 }
 
 /* ---------- TABLE ---------- */
@@ -590,6 +528,14 @@ body {
 }
 
 /* ---------- SAVED RECORDS ---------- */
+
+.saved-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
 
 .records-list {
     display: flex;
@@ -754,6 +700,42 @@ body {
     color: var(--text-primary);
 }
 
+/* ---------- COMPUTE RESULT SECTION ---------- */
+
+.compute-result-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.subject-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.subject-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1.2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.7rem;
+    font-size: 0.9rem;
+}
+
+.subject-name {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.subject-grade {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
 /* ---------- MODALS ---------- */
 
 .modal {
@@ -868,17 +850,21 @@ body {
         flex-direction: column;
     }
 
+    .saved-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #computeGWABtn {
+        flex: 1;
+    }
+
     .record-grade-row {
         grid-template-columns: 1fr;
     }
 
     .record-results {
         grid-template-columns: 1fr;
-    }
-
-    .remark-badge {
-        font-size: 0.95rem;
-        padding: 0.9rem 1.3rem;
     }
 }
 
